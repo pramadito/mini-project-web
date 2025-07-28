@@ -37,7 +37,7 @@ const banners: Banner[] = [
     location: "Beach City International Stadium",
   },
   {
-    src: "/pacu.webp",
+    src: "/minsoc.webp",
     alt: "Mini Soccer",
     date: "FRI 25 DES, 2026",
     location: "Beach City International Stadium",

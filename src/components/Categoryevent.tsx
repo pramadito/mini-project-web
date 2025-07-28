@@ -10,7 +10,7 @@ const CategoryEvent = () => {
 
       <div className="motion-preset-expand container mx-auto mt-4 grid grid-cols-1 items-center justify-center gap-8 md:grid-cols-3">
         <div className="h-[150px] w-[150px] rounded-full border-4 border-[#ea580c] bg-[#ea580c] px-8 py-8 text-black transition-transform duration-300 hover:scale-110 hover:bg-black hover:text-[#ea580c]">
-          <Link href={"/single"}>
+          <Link href={"/events"}>
             <Image
               src="/singlee.webp"
               alt="pler"
@@ -24,7 +24,7 @@ const CategoryEvent = () => {
         </div>
 
         <div className="h-[150px] w-[150px] rounded-full border-4 border-[#ea580c] bg-[#ea580c] px-8 py-8 text-black transition-transform duration-300 hover:scale-110 hover:bg-black hover:text-[#ea580c]">
-          <Link href={"/double"}>
+          <Link href={"/events"}>
             <Image
               src="/double.webp"
               alt="pler"
@@ -38,7 +38,7 @@ const CategoryEvent = () => {
         </div>
 
         <div className="h-[150px] w-[150px] rounded-full border-4 border-[#ea580c] bg-[#ea580c] px-8 py-8 text-black transition-transform duration-300 hover:scale-110 hover:bg-black hover:text-[#ea580c]">
-          <Link href={"/team"}>
+          <Link href={"/events"}>
             <Image src="/team.webp" alt="pler" width={250} height={250}></Image>
           </Link>
           <span className="text-1xl mt-18 flex justify-center font-bold md:text-3xl">
