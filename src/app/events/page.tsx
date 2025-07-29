@@ -1,5 +1,10 @@
-const Events = () => {
-  return <div>Events</div>;
-};
+import EventList from "./_components/EventList";
 
-export default Events;
+export default function Events() {
+  return (
+    <main className="container mx-auto px-4">
+   
+      <EventList />
+    </main>
+  );
+}

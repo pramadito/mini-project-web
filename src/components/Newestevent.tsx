@@ -1,24 +1,42 @@
+import { LogOut } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 const events = [
   {
     id: 1,
-    title: "Raisa Ambivert Showcase",
+    title: "LAJUR PACU",
     date: "11 Feb 2026 - 13 Feb 2026",
-    price: "Rp 2.000.000",
-    img: "/events/raisa.jpg",
-    author: "Daniel Reinhard",
+    price: "Rp 1.000.000",
+    img: "/pacu.webp",
+    location: "Beach City International Stadium",
   },
   {
     id: 2,
-    title: "PLAYOFF IBL GOPAY 2025",
+    title: "MARATHON RUNNING",
     date: "31 Mar 2026 - 01 Apr 2026",
-    price: "Rp 650.000",
-    img: "/events/ibl.jpg",
-    author: "Daniel Reinhard",
+    price: "Rp 100.000",
+    img: "/marathon.webp",
+    location: "Beach City International Stadium",
   },
-  // Add more events...
+  {
+    id: 3,
+    title: "BADMINTON",
+    date: "31 Mar 2026 - 01 Apr 2026",
+    price: "Rp 200.000",
+    img: "/badminton.webp",
+    location: "Beach City International Stadium",
+  },
+  {
+    id: 4,
+    title: "MINI SOCCER",
+    date: "31 Mar 2026 - 01 Apr 2026",
+    price: "Rp 500.000",
+    img: "/minsoc.webp",
+    location: "Beach City International Stadium",
+  },
+
+
 ];
 
 export default function NewestEvents() {
@@ -34,40 +52,35 @@ export default function NewestEvents() {
         </Link>
       </div>
 
-      <div className="motion-preset-expand container mx-auto mt-4 grid grid-cols-1 gap-8 md:grid-cols-4">
-        <div className="rounded-xl border-4 border-[#ea580c] bg-[#ea580c] px-8 py-8 text-black transition-transform duration-300 hover:scale-110 hover:bg-black hover:text-[#ea580c]">
-          <h1 className="text-1xl mt-3 flex justify-center font-bold md:text-3xl">
-            Single
-          </h1>
-          <p className="mt-0 md:mt-3">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum
-            officiis eius omnis similique nisi aliquam tempore totam iusto enim
-          </p>
-        </div>
-        <div className="rounded-xl border-4 border-[#ea580c] bg-[#ea580c] px-8 py-8 text-black transition-transform duration-300 hover:scale-110 hover:bg-black hover:text-[#ea580c]">
-          <h1 className="text-1xl mt-3 flex justify-center font-bold md:text-3xl">
-            Double
-          </h1>
-          <p className="mt-0 md:mt-3">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum
-            officiis eius omnis similique nisi aliquam tempore totam iusto enim
-          </p>
-        </div>
-        <div className="rounded-xl border-4 border-[#ea580c] bg-[#ea580c] px-8 py-8 text-black transition-transform duration-300 hover:scale-110 hover:bg-black hover:text-[#ea580c]">
-          <h1 className="text-1xl mt-3 flex justify-center font-bold md:text-3xl">
-            Team
-          </h1>
-          <p className="mt-0 md:mt-3">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum
-            officiis eius omnis similique nisi aliquam tempore totam iusto enim
-          </p>
-        </div>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {events.map((event) => (
+          <div
+            key={event.id}
+            className="group relative h-[300px] overflow-hidden rounded-lg"
+          >
+           <Image
+              src={event.img}
+              alt={event.title}
+              fill  
+              className="object-cover"
+            />
+
+            <div className="absolute inset-0 bg-black/40 flex flex-col justify-end p-6 text-white">
+              <h2 className="text-2xl font-bold">{event.title}</h2>
+              <p className="text-sm">{event.date}</p>
+              <p className="text-sm">{event.price}</p>
+              <p className="text-xs pt-2">{event.location}</p>
+            </div>
+          </div>
+        ))}
       </div>
+     
+   
       {/* <div className="p-4 space-y-2">
               <h4 className="font-semibold text-white line-clamp-2">{event.title}</h4>
               <p className="text-sm text-sky-400">{event.date}</p>
               <p className="text-sm text-orange-400">{event.price}</p>
-              <p className="text-xs text-white/60 pt-2">by {event.author}</p>
+              <p className="text-xs">{event.location}</p>
             </div> */}
     </section>
   );
