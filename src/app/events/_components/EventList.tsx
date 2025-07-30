@@ -44,9 +44,9 @@ const EventList = () => {
           <SelectContent>
             <SelectGroup>
               <SelectLabel>Category</SelectLabel>
-              <SelectItem value="apple">Single</SelectItem>
-              <SelectItem value="banana">Double</SelectItem>
-              <SelectItem value="blueberry">Team</SelectItem>
+              <SelectItem value="single">Single</SelectItem>
+              <SelectItem value="double">Double</SelectItem>
+              <SelectItem value="team">Team</SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>

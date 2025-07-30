@@ -14,9 +14,9 @@ const EventCard: FC<EventCardProps> = ({ event }) => {
     <Link href={`/events/${event.slug}`}>
       <Card>
         <CardHeader>
-          <div className="relative w-full h-[200px] rounded-lg overflow-hidden">
+          <div className="relative w-full h-[200px] rounded-lg overflow-hidden ">
             <Image
-              src="/pacu.webp"
+              src={event.imageUrl}
               alt="event"
               fill
               className="object-cover"
@@ -27,6 +27,7 @@ const EventCard: FC<EventCardProps> = ({ event }) => {
         <CardContent>
           <h2 className="font-bold text-lg">{event.title}</h2>
           <p className="line-clamp-3">{event.description}</p>
+          <p className="line-clamp-3">{event.location}</p>
         </CardContent>
       </Card>
     </Link>
