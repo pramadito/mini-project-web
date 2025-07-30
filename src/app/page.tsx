@@ -1,15 +1,15 @@
 import CategoryEvent from "@/components/Categoryevent";
+import EventHome from "@/components/eventhome";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
-import Navbar from "@/components/Navbar";
-import  Newestevent  from "@/components/Newestevent";
+
 
 export default function Home() {
   return (
     <main>
       <HeroSection />
       <CategoryEvent />
-      <Newestevent />
+      <EventHome />
       <Footer />
     </main>
   );
