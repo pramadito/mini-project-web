@@ -7,6 +7,7 @@ export interface Event {
   location: string
   startDate: Date
   endDate: Date
+  organizer: string
   organizerId: number
   totalSeats: number
   availableSeats: number
