@@ -12,7 +12,7 @@ interface EventHeaderProps {
 
 const EventHeader = async ({ slug }: EventHeaderProps) => {
   const event = await getEvent(slug);
-  const totalPrice = 0; // dummy, ganti sesuai kebutuhan
+  const totalPrice = 0; 
 
   const startDate = new Date(event.startDate);
   const endDate = new Date(event.endDate);
@@ -51,14 +51,14 @@ const EventHeader = async ({ slug }: EventHeaderProps) => {
             </div>
 
             <Tabs defaultValue="description" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 rounded-full bg-gray-100 p-1 text-sm">
+              <TabsList className="grid w-full grid-cols-2 rounded-full p-1 text-sm">
                 <TabsTrigger value="description">Description</TabsTrigger>
                 <TabsTrigger value="tickets">Tickets</TabsTrigger>
               </TabsList>
 
               <TabsContent
                 value="description"
-                className="space-y-4 pt-6 text-sm leading-relaxed text-gray-700"
+                className="space-y-4 pt-6 text-sm leading-relaxed "
               >
                 <p>{event.description}</p>
                 <ul className="list-inside list-disc space-y-1">
@@ -76,7 +76,7 @@ const EventHeader = async ({ slug }: EventHeaderProps) => {
 
               <TabsContent value="tickets" className="pt-6">
                 <Card className="border-orange-200">
-                  <CardContent className="flex items-start gap-3 p-6 text-sm text-gray-600">
+                  <CardContent className="flex items-start gap-3 p-6 text-sm ">
                     <Sparkles className="mt-1 h-5 w-5 text-orange-500" />
                     <span>
                       You haven't selected any tickets. Please choose one first in the{" "}
@@ -91,10 +91,10 @@ const EventHeader = async ({ slug }: EventHeaderProps) => {
           {/* RIGHT */}
           <div className="space-y-6">
             <Card>
-              <CardContent className="space-y-4 p-6">
-                <h1 className="text-2xl font-bold text-gray-900">{event.title}</h1>
+              <CardContent className="space-y-4 p-6 ">
+                <h1 className="text-2xl font-bold ">{event.title}</h1>
 
-                <div className="space-y-2 text-sm text-gray-600">
+                <div className="space-y-2 text-sm ">
                   <div className="flex items-start gap-3">
                     <MapPin className="mt-0.5 h-5 w-5 text-orange-500" />
                     <span>{event.location}</span>
@@ -108,29 +108,18 @@ const EventHeader = async ({ slug }: EventHeaderProps) => {
                     <span>19:00 - 23:00</span>
                   </div>
                 </div>
-
-                <div className="flex items-center gap-3 pt-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-black">
-                    <span className="text-sm font-bold text-white">
-                      {event.organizer || "ORG"}
-                    </span>
-                  </div>
-                  <span className="text-sm font-medium text-gray-900">
-                    {event.organizer || "Unknown Organizer"}
-                  </span>
-                </div>
               </CardContent>
             </Card>
 
             <Card>
               <CardContent className="space-y-4 p-6">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-gray-900">Total price</span>
-                  <span className="text-xl font-bold text-gray-900">
+                  <span className="text-sm font-medium ">Total price</span>
+                  <span className="text-xl font-bold ">
                     Rp {totalPrice.toLocaleString()}
                   </span>
                 </div>
-                <Button className="w-full bg-orange-500 py-3 text-sm font-medium text-white hover:bg-orange-600">
+                <Button className="w-full bg-orange-500 py-3 text-sm font-medium  hover:bg-orange-600">
                   Checkout
                 </Button>
               </CardContent>

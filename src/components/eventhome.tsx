@@ -1,22 +1,11 @@
 "use client";
 
-import PaginationSection from "@/components/PaginationSection";
-import useGetEvents from "@/app/events/_hooks/useGetEvents";
 import EventCard from "@/app/events/_components/EventCard";
 import EventCardSkeleton from "@/app/events/_components/EventCardSkeleton";
-import { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { useDebounceValue } from "usehooks-ts";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import useGetEvents from "@/app/events/_hooks/useGetEvents";
 import Link from "next/link";
+import { useState } from "react";
+import { useDebounceValue } from "usehooks-ts";
 
 const EventHome = () => {
   const [search, setSearch] = useState("");
