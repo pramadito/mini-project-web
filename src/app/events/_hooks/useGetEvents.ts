@@ -5,6 +5,7 @@ import { PageableResponse, PaginationQueries } from "@/types/pagination";
 
 interface GetEventsQuery extends PaginationQueries {
   search?: string;
+  category?: string;
 }
 const useGetEvents = (queries?: GetEventsQuery) => {
   return useQuery({

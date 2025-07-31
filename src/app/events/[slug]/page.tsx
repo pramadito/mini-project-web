@@ -1,5 +1,4 @@
 import { Suspense } from "react";
-import EventBody from "./_components/EventBody";
 import Loading from "@/components/Loading";
 import EventHeader from "./_components/EventHeader";
 
@@ -12,8 +11,7 @@ const EventDetail = async ({
   return (
     <main className="container mx-auto px-4 pb-20">
       <Suspense fallback={<Loading />}>
-        <EventHeader slug={slug} />
-        <EventBody slug={slug} />
+        <EventHeader slug={slug} /> 
       </Suspense>
     </main>
   );
