@@ -43,7 +43,7 @@ const EventHome = () => {
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {isPending && <EventCardSkeleton count={3} />}
 
-        {events?.data.map((event) => (
+        {events?.data?.map((event) => (
           <EventCard key={event.id} event={event} />
         ))}
       </section>
