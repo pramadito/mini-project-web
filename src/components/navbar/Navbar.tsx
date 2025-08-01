@@ -1,7 +1,7 @@
 import Image from "next/image";
-import { ModeToggle } from "./ModeToggle";
+import { ModeToggle } from "../ModeToggle";
 import Link from "next/link";
-import { Sidebar } from "./navbar/sidebar";
+import { Sidebar } from "./sidebar";
 
 const Navbar = () => {
   return (
@@ -14,6 +14,7 @@ const Navbar = () => {
           </span>
         </p>
       </Link>
+      
       <ModeToggle />
       <div className="md:hidden">
         <Sidebar />
