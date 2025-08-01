@@ -20,6 +20,7 @@ const TipTapRichtextEditor: FC<TipTapRichtextEditorProps> = ({
     useFormikContext<any>();
 
   const editor = useEditor({
+    immediatelyRender: false,
     extensions: [StarterKit],
     content: values[name],
     editorProps: {
