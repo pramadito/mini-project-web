@@ -14,8 +14,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ModeToggle } from "../ModeToggle";
 import Link from "next/link";
 import { Sidebar } from "./sidebar";
+import { signOut, useSession } from "next-auth/react";
 
 const Navbar = () => {
+  const session = useSession();
+  const logout = () => {
+    signOut();
+  };
   return (
     <>
       {/* Fixed Top Navbar - Above everything */}
@@ -54,6 +59,13 @@ const Navbar = () => {
           {/* Desktop Controls (Hidden on mobile) */}
           <div className=" md:flex items-center gap-3">
            
+            
+          
+          <div className="flex items-center gap-4">
+
+        {session.data?.user ? (
+          <>
+            <Link href="/write">Write</Link>
              {/* Profile */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -98,13 +110,19 @@ const Navbar = () => {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator className="my-2" />
                 <DropdownMenuItem className="p-3 cursor-pointer text-red-600 hover:bg-red-50 hover:text-red-700 rounded-md transition-colors">
-                  <span className="flex items-center gap-2">🚪 Log out</span>
+                  <span className="flex items-center gap-2" onClick={logout}>🚪 Log out</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
            {/* Mobile Sidebar Trigger (Right side on mobile) */}
-          
-
+          </>
+        ) : (
+          <>
+            <Link href="/login">Sign in</Link>
+            <Link href="/register" >Sign up</Link>
+          </>
+        )}
+      </div>
           </div>
           <div className="md:hidden">
             <Sidebar />
