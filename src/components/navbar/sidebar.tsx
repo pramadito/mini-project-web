@@ -20,6 +20,7 @@ import {
   LogIn,
   AlertCircle,
   Menu,
+  Ticket,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -40,10 +41,10 @@ const sidebarGroups = [
         badge: null,
       },
       {
-        title: "Analytics",
-        href: "/dashboard/analytics",
-        icon: BarChart3,
-        badge: "New",
+        title: "Tickets",
+        href: "/dashboard/tickets",
+        icon: Ticket,
+        badge: "12",
       },
       {
         title: "Profile",
@@ -54,19 +55,20 @@ const sidebarGroups = [
     ],
   },
   {
-    title: "Pages",
+    title: "Organizer",
     items: [
+      
       {
-        title: "Users",
-        href: "/dashboard/users",
-        icon: Users,
-        badge: "12",
-      },
-      {
-        title: "Projects",
-        href: "/dashboard/projects",
+        title: "Manage Events",
+        href: "/dashboard/manage-events",
         icon: FolderKanban,
         badge: null,
+      },
+      {
+        title: "Statistic",
+        href: "/dashboard/statistic",
+        icon: BarChart3,
+        badge: "New",
       },
       {
         title: "Documents",
@@ -94,35 +96,35 @@ const sidebarGroups = [
       },
     ],
   },
-  {
-    title: "Others",
-    items: [
-      {
-        title: "Messages",
-        href: "/dashboard/messages",
-        icon: MessageSquare,
-        badge: "5",
-      },
-      {
-        title: "Database",
-        href: "/dashboard/database",
-        icon: Database,
-        badge: null,
-      },
-      {
-        title: "Security",
-        href: "/dashboard/security",
-        icon: Shield,
-        badge: "!",
-      },
-      {
-        title: "Help",
-        href: "/dashboard/help",
-        icon: HelpCircle,
-        badge: null,
-      },
-    ],
-  },
+  // {
+  //   title: "Others",
+  //   items: [
+  //     {
+  //       title: "Messages",
+  //       href: "/dashboard/messages",
+  //       icon: MessageSquare,
+  //       badge: "5",
+  //     },
+  //     {
+  //       title: "Database",
+  //       href: "/dashboard/database",
+  //       icon: Database,
+  //       badge: null,
+  //     },
+  //     {
+  //       title: "Security",
+  //       href: "/dashboard/security",
+  //       icon: Shield,
+  //       badge: "!",
+  //     },
+  //     {
+  //       title: "Help",
+  //       href: "/dashboard/help",
+  //       icon: HelpCircle,
+  //       badge: null,
+  //     },
+  //   ],
+  // },
 ];
 
 interface SidebarProps {
