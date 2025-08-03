@@ -1,14 +1,9 @@
-import { auth } from "@/auth"
-import { notFound, redirect } from "next/navigation";
-import WritePage from "./components/WritePage";
+import React from 'react'
 
-const Write = async () => {
-  const session = await auth();
+const allEvent = () => {
+  return (
+    <div>page</div>
+  )
+}
 
-  // if (!session?.user) return redirect("/login");
-
-
-  return <WritePage />;
-};
-
-export default Write;
+export default allEvent

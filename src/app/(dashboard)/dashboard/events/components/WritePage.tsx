@@ -1,158 +1,171 @@
 "use client";
 
-import TipTapRichtextEditor from "@/components/TipTapRichtextEditor";
+import TiptapRichtextEditor from "@/components/TipTapRichtextEditor";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { Trash } from "lucide-react";
 import Image from "next/image";
 import { ChangeEvent, useState } from "react";
 import * as Yup from "yup";
-import useCreateEvent from "../create/page";
+import useCreateEvent from "../create/api/page";
+
+interface FormValues {
+  title: string;
+  category: string;
+  description: string;
+  thumbnail: File | null;
+}
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required("Title is required"),
   category: Yup.string().required("Category is required"),
   description: Yup.string().required("Description is required"),
-  content: Yup.string().required("Content is required"),
-  thumbnail: Yup.mixed().nullable("Thumbnail is required"),
+  thumbnail: Yup.mixed().required("Thumbnail is required"),
 });
 
-const WritePage = () => {
-  const [selectedImage, setSelectedImage] = useState<string>("");
+const CreatePage = () => {
+  const [previewImage, setPreviewImage] = useState<string>("");
+  const { mutateAsync: createEvent, isPending } = useCreateEvent();
 
-  const onChangeThumbnail = (
+  const handleThumbnailChange = (
     e: ChangeEvent<HTMLInputElement>,
-    setFieldValue: (field: string, value: any) => void
+    setFieldValue: (field: string, value: any) => void,
   ) => {
-    const files = e.target.files;
-
-    if (files && files.length) {
-      setSelectedImage(URL.createObjectURL(files[0]));
-      setFieldValue("thumbnail", files[0]);
+    const file = e.target.files?.[0];
+    if (file) {
+      setPreviewImage(URL.createObjectURL(file));
+      setFieldValue("thumbnail", file);
     }
   };
 
-  const removeThumbnail = (
-    setFieldValue: (field: string, value: any) => void
+  const handleRemoveThumbnail = (
+    setFieldValue: (field: string, value: any) => void,
   ) => {
-    setSelectedImage("");
+    setPreviewImage("");
     setFieldValue("thumbnail", null);
   };
 
-  const { mutateAsync: createEvent, isPending } = useCreateEvent();
-
   return (
-    <main className="container mx-auto px-4 pb-20">
-      <Formik
+    <main className="container mx-auto mt-10 px-4 pb-20">
+      <h1 className="mb-6 text-3xl font-bold text-orange-500">Create Event</h1>
+
+      <Formik<FormValues>
         initialValues={{
           title: "",
-          description: "",
-          content: "",
           category: "",
+          description: "",
           thumbnail: null,
+
         }}
         validationSchema={validationSchema}
         onSubmit={async (values) => {
-          await createEvent(values);
+          await createEvent({
+            title: values.title,
+            category: values.category,
+            description: values.description,
+            thumbnail: values.thumbnail,
+          });
         }}
       >
-        {({ setFieldValue }) => (
-          <Form className="space-y-4">
-            <div className="flex flex-col gap-6">
-              {/* TITLE */}
-              <div className="grid gap-2">
-                <Label htmlFor="title">Title</Label>
-                <Field
-                  name="title"
-                  as={Input}
-                  type="text"
-                  placeholder="Title"
-                />
-                <ErrorMessage
-                  name="title"
-                  component="p"
-                  className="text-sm text-red-500"
-                />
-              </div>
-
-              {/* CATEGORY */}
-              <div className="grid gap-2">
-                <Label htmlFor="category">Category</Label>
-                <Field
-                  name="category"
-                  as={Input}
-                  type="text"
-                  placeholder="Category"
-                />
-                <ErrorMessage
-                  name="category"
-                  component="p"
-                  className="text-sm text-red-500"
-                />
-              </div>
-
-              {/* DESCRIPTION */}
-              <div className="grid gap-2">
-                <Label htmlFor="description">Description</Label>
-                <Field
-                  name="description"
-                  as={Textarea}
-                  type="text"
-                  placeholder="Description"
-                  style={{ resize: "none" }}
-                />
-                <ErrorMessage
-                  name="description"
-                  component="p"
-                  className="text-sm text-red-500"
-                />
-              </div>
-
-              {/* CONTENT */}
-              <TipTapRichtextEditor label="Content" name="content" />
-
-              {/* THUMBNAIL */}
-              {selectedImage ? (
-                <div className="relative w-fit">
-                  <Image
-                    src={selectedImage}
-                    alt="thumbnail"
-                    width={200}
-                    height={150}
-                    className="object-cover"
-                  />
-                  <Button
-                    size="icon"
-                    className="absolute -top-2 -right-2 rounded-full bg-red-500"
-                    onClick={() => removeThumbnail(setFieldValue)}
-                  >
-                    <Trash />
-                  </Button>
-                </div>
-              ) : (
-                <div className="grid gap-2">
-                  <Label htmlFor="thumbnail">Thumbnail</Label>
-                  <Input
-                    name="thumbnail"
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => onChangeThumbnail(e, setFieldValue)}
-                  />
+        {({ setFieldValue, values }) => (
+          <Form className="space-y-10">
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+              {/* Left Section */}
+              <div className="space-y-6">
+                <div className="space-y-1">
+                  <Label htmlFor="title">Title *</Label>
+                  <Field name="title" as={Input} placeholder="Event title" />
                   <ErrorMessage
-                    name="thumbnail"
-                    component="p"
+                    name="title"
+                    component="div"
                     className="text-sm text-red-500"
                   />
                 </div>
-              )}
+
+                <div className="space-y-1">
+                  <Label htmlFor="category">Category *</Label>
+                  <Field
+                    as="select"
+                    name="category"
+                    className="w-full rounded-md border px-3 py-2"
+                  >
+                    <option value="">Select category</option>
+                    <option value="single">Single</option>
+                    <option value="double">Double</option>
+                    <option value="team">Team</option>
+                  </Field>
+                  <ErrorMessage
+                    name="category"
+                    component="div"
+                    className="text-sm text-red-500"
+                  />
+                </div>
+              </div>
+
+              {/* Right Section */}
+              <div className="space-y-6">
+                <div className="space-y-1">
+                  <Label htmlFor="thumbnail">Thumbnail *</Label>
+                  {previewImage ? (
+                    <div className="relative w-fit">
+                      <Image
+                        src={previewImage}
+                        alt="Thumbnail preview"
+                        width={300}
+                        height={200}
+                        className="rounded-md object-cover shadow-md"
+                      />
+                      <Button
+                        size="icon"
+                        type="button"
+                        className="absolute -top-2 -right-2 rounded-full bg-red-500 text-white shadow"
+                        onClick={() => handleRemoveThumbnail(setFieldValue)}
+                      >
+                        <Trash className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  ) : (
+                    <>
+                      <Input
+                        type="file"
+                        name="thumbnail"
+                        accept="image/*"
+                        onChange={(e) =>
+                          handleThumbnailChange(e, setFieldValue)
+                        }
+                      />
+                      <ErrorMessage
+                        name="thumbnail"
+                        component="div"
+                        className="text-sm text-red-500"
+                      />
+                    </>
+                  )}
+                </div>
+
+                <div className="space-y-1">
+                  <TiptapRichtextEditor
+                    name="description"
+                    label="Description *"
+                  />
+                  <ErrorMessage
+                    name="description"
+                    component="div"
+                    className="text-sm text-red-500"
+                  />
+                </div>
+              </div>
             </div>
 
             <div className="flex justify-end">
-              <Button type="submit" disabled={isPending}>
-                {isPending ? "Loading" : "Submit"}
+              <Button
+                type="submit"
+                disabled={isPending}
+                className="bg-orange-500 text-white hover:bg-orange-600"
+              >
+                {isPending ? "Submitting..." : "Submit Event"}
               </Button>
             </div>
           </Form>
@@ -162,4 +175,4 @@ const WritePage = () => {
   );
 };
 
-export default WritePage;
+export default CreatePage;
