@@ -21,6 +21,7 @@ import {
   AlertCircle,
   Menu,
   Ticket,
+  Calendar1,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -61,7 +62,7 @@ const sidebarGroups = [
       {
         title: "Manage Events",
         href: "/dashboard/manage-events",
-        icon: FolderKanban,
+        icon: Calendar1,
         badge: null,
       },
       {

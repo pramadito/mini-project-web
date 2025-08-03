@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import "./globals.css";
-import Navbar from "@/components/navbar/Navbar";
+import Navbar from "@/components/navbar/navbar";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import NextAuthProvider from "@/providers/NextAuthProvider";
 
