@@ -46,8 +46,8 @@ const sidebarGroups = [
         badge: "New",
       },
       {
-        title: "Settings",
-        href: "/dashboard/settings",
+        title: "Profile",
+        href: "/dashboard/profile",
         icon: Settings,
         badge: null,
       },
