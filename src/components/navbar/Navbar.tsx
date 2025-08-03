@@ -24,7 +24,7 @@ const Navbar = () => {
   return (
     <>
       {/* Fixed Top Navbar - Above everything */}
-      <nav className="fixed top-0 left-0 right-0 z-50 flex w-full items-center justify-between gap-4 border-b border-gray-700 bg-black/95 px-6 py-4 text-sm backdrop-blur supports-[backdrop-filter]:bg-black/60">
+      <nav className="fixed top-0 right-0 left-0 z-50 flex w-full items-center justify-between gap-4 border-b border-gray-700 bg-black/95 px-6 py-4 text-sm backdrop-blur supports-[backdrop-filter]:bg-black/60">
         {/* Left side - Logo and Desktop Sidebar Trigger */}
         <div className="flex items-center gap-4">
           {/* Logo */}
@@ -38,91 +38,121 @@ const Navbar = () => {
           </Link>
         </div>
 
-
         {/* Right side - Controls */}
         <div className="flex items-center gap-3">
           {/* Theme Toggle */}
           <ModeToggle />
-            
-           {/* Notifications */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="relative h-9 w-9 hover:bg-muted transition-colors"
-              aria-label="Notifications"
-            >
-              <Bell className="h-4 w-4" />
-              <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 text-white text-xs flex items-center justify-center font-medium">
-                3
-              </span>
-            </Button>
-          {/* Desktop Controls (Hidden on mobile) */}
-          <div className=" md:flex items-center gap-3">
-           
-            
-          
-          <div className="flex items-center gap-4">
 
-        {session.data?.user ? (
-          <>
-            <Link href="/write">Write</Link>
-             {/* Profile */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  className="relative h-9 w-9 rounded-full hover:bg-muted transition-colors"
-                >
-                  <Avatar className="h-8 w-8 ring-2 ring-background">
-                    <AvatarImage src="/avatar.png" alt="User" />
-                    <AvatarFallback className="bg-primary text-primary-foreground font-semibold">
-                      UN
-                    </AvatarFallback>
-                  </Avatar>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-64 p-2" align="end" forceMount>
-                <DropdownMenuLabel className="font-normal p-3">
-                  <div className="flex items-center gap-3">
-                    <Avatar className="h-10 w-10">
-                      <AvatarImage src="/avatar.png" alt="User" />
-                      <AvatarFallback className="bg-primary text-primary-foreground">
-                        UN
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="flex flex-col space-y-1">
-                      <p className="text-sm font-medium leading-none">John Doe</p>
-                      <p className="text-xs leading-none text-muted-foreground">
-                        john.doe@example.com
-                      </p>
-                    </div>
-                  </div>
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator className="my-2" />
-                <DropdownMenuItem className="p-3 cursor-pointer hover:bg-muted rounded-md transition-colors">
-                  <span className="flex items-center gap-2">👤 Profile</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="p-3 cursor-pointer hover:bg-muted rounded-md transition-colors">
-                  <span className="flex items-center gap-2">⚙️ Settings</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="p-3 cursor-pointer hover:bg-muted rounded-md transition-colors">
-                  <span className="flex items-center gap-2">💳 Billing</span>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator className="my-2" />
-                <DropdownMenuItem className="p-3 cursor-pointer text-red-600 hover:bg-red-50 hover:text-red-700 rounded-md transition-colors">
-                  <span className="flex items-center gap-2" onClick={logout}>🚪 Log out</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-           {/* Mobile Sidebar Trigger (Right side on mobile) */}
-          </>
-        ) : (
-          <>
-            <Link href="/login">Sign in</Link>
-            <Link href="/register" >Sign up</Link>
-          </>
-        )}
-      </div>
+          {/* Notifications */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="hover:bg-muted relative h-9 w-9 transition-colors"
+            aria-label="Notifications"
+          >
+            <Bell className="h-4 w-4" />
+            <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-medium text-white">
+              3
+            </span>
+          </Button>
+          {/* Desktop Controls (Hidden on mobile) */}
+          <div className="items-center gap-3 md:flex">
+            <div className="flex items-center gap-4">
+              {session.data?.user ? (
+                <>
+                  <Link href="/write">Write</Link>
+                  {/* Profile */}
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        className="hover:bg-muted relative h-9 w-9 rounded-full transition-colors"
+                      >
+                        <Avatar className="ring-background h-8 w-8 ring-2">
+                          <AvatarImage
+                            src={session?.data?.user.profilePicture || ""}
+                            alt={session?.data?.user.name || "User"}
+                          />
+                          <AvatarFallback className="bg-primary text-primary-foreground font-semibold">
+                            {session?.data?.user.name
+                              ? session?.data?.user.name
+                                  .substring(0, 2)
+                                  .toUpperCase()
+                              : "UN"}
+                          </AvatarFallback>
+                        </Avatar>
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent
+                      className="w-64 p-2"
+                      align="end"
+                      forceMount
+                    >
+                      <DropdownMenuLabel className="p-3 font-normal">
+                        <div className="flex items-center gap-3">
+                          <Avatar className="h-10 w-10">
+                            <AvatarImage
+                              src={
+                                session?.data?.user.profilePicture ||
+                                "/avatar.png"
+                              }
+                              alt={session?.data?.user.name || "User"}
+                            />
+                            <AvatarFallback className="bg-primary text-primary-foreground">
+                              {session?.data?.user.name
+                                ? session?.data?.user.name
+                                    .substring(0, 2)
+                                    .toUpperCase()
+                                : "UN"}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="flex flex-col space-y-1">
+                            <p className="text-sm leading-none font-medium">
+                              {session?.data?.user.name || "John Doe"}
+                            </p>
+                            <p className="text-muted-foreground text-xs leading-none">
+                              {session?.data?.user.email ||
+                                "john.doe@example.com"}
+                            </p>
+                          </div>
+                        </div>
+                      </DropdownMenuLabel>
+                      {/* Rest of the dropdown menu items remain the same */}
+                      <DropdownMenuSeparator className="my-2" />
+                      <DropdownMenuItem className="hover:bg-muted cursor-pointer rounded-md p-3 transition-colors">
+                        <span className="flex items-center gap-2">
+                          👤 Profile
+                        </span>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem className="hover:bg-muted cursor-pointer rounded-md p-3 transition-colors">
+                        <span className="flex items-center gap-2">
+                          ⚙️ Settings
+                        </span>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem className="hover:bg-muted cursor-pointer rounded-md p-3 transition-colors">
+                        <span className="flex items-center gap-2">
+                          💳 Billing
+                        </span>
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator className="my-2" />
+                      <DropdownMenuItem className="cursor-pointer rounded-md p-3 text-red-600 transition-colors hover:bg-red-50 hover:text-red-700">
+                        <span
+                          className="flex items-center gap-2"
+                          onClick={logout}
+                        >
+                          🚪 Log out
+                        </span>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </>
+              ) : (
+                <>
+                  <Link href="/login">Sign in</Link>
+                  <Link href="/register">Sign up</Link>
+                </>
+              )}
+            </div>
           </div>
           <div className="md:hidden">
             <Sidebar />
@@ -131,7 +161,6 @@ const Navbar = () => {
       </nav>
 
       {/* Desktop Sidebar - Fixed left side below navbar */}
-     
 
       {/* Mobile Sidebar - Handled within the Sidebar component */}
     </>
