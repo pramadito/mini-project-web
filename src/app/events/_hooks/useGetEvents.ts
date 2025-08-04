@@ -8,6 +8,8 @@ interface GetEventsQuery extends PaginationQueries {
   category?: string;
 }
 const useGetEvents = (queries?: GetEventsQuery) => {
+  console.log(queries);
+  
   return useQuery({
     queryKey: ["events", queries],
     queryFn: async () => {
