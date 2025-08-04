@@ -3,9 +3,12 @@ import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/navbar/Navbar";
+
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import NextAuthProvider from "@/providers/NextAuthProvider";
+import Navbar from "@/components/navbar/Navbar";
+
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

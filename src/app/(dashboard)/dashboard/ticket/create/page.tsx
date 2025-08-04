@@ -5,7 +5,7 @@ import CreateTicket from "./components/createTicket";
 const DashboardTickets = async () => {
   const session = await auth();
 
-//   if (!session?.user) return redirect(`/login`);
+  if (!session?.user) return redirect(`/login`);
 
   return <CreateTicket />;
 };

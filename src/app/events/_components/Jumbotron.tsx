@@ -1,4 +1,4 @@
-import Navbar from "@/components/navbar/Navbar";
+import Navbar from "@/components/navbar/navbar";
 import { Input } from "@/components/ui/input";
 
 const Jumbotron = () => {
