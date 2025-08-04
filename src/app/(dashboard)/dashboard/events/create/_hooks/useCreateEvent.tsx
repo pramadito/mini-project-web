@@ -9,6 +9,9 @@ interface Payload {
   category: string;
   description: string;
   thumbnail: File | null;
+  startDate: string;
+  endDate: string;
+  location: string;
 }
 
 const useCreateEvent = () => {
@@ -18,11 +21,17 @@ const useCreateEvent = () => {
 
   return useMutation({
     mutationFn: async (payload: Payload) => {
+
+      console.log(payload);
+      
       const form = new FormData();
       form.append("thumbnail", payload.thumbnail!);
       form.append("title", payload.title);
       form.append("category", payload.category);
       form.append("description", payload.description);
+      form.append("location", "Jakarta");
+      form.append("startDate", payload.startDate);
+      form.append("endDate", payload.endDate);
 
       if (payload.thumbnail) {
         form.append("thumbnail", payload.thumbnail);

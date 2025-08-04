@@ -35,13 +35,13 @@ const EventHeader = async ({ slug }: EventHeaderProps) => {
 
   return (
     <section>
-      <div className="min-h-screen px-4 py-6 sm:px-6 lg:px-8">
+      <div className="min-h-screen px-4 py-6 sm:px-6 lg:px-8 mt:-3 md:mt-15">
         <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 lg:grid-cols-[2fr_1fr]">
           {/* LEFT */}
           <div className="space-y-6">
             <div className="relative aspect-video w-full overflow-hidden rounded-2xl shadow-md">
               <Image
-                src={event.thumbnail || "/pacu.webp"}
+                src={event.imageUrl}
                 alt="Event Poster"
                 fill
                 className="object-cover"

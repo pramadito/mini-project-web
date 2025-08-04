@@ -16,6 +16,9 @@ interface FormValues {
   category: string;
   description: string;
   thumbnail: File | null;
+  location: string;
+  startDate: string;
+  endDate: string;
 }
 
 const validationSchema = Yup.object().shape({
@@ -23,6 +26,8 @@ const validationSchema = Yup.object().shape({
   category: Yup.string().required("Category is required"),
   description: Yup.string().required("Description is required"),
   thumbnail: Yup.mixed().required("Thumbnail is required"),
+  startDate: Yup.string().required("Start date is required"),
+  endDate: Yup.string().required("End date is required"),
 });
 
 const CreateEvent = () => {
@@ -57,16 +62,20 @@ const CreateEvent = () => {
           category: "",
           description: "",
           thumbnail: null,
-
+          startDate: "",
+          endDate: "",
+          location: "",
         }}
         validationSchema={validationSchema}
         onSubmit={async (values) => {
-          
           await createEvent({
             title: values.title,
             category: values.category,
             description: values.description,
             thumbnail: values.thumbnail,
+            startDate: values.startDate,
+            endDate: values.endDate,
+            location: values.location,
           });
         }}
       >
@@ -99,6 +108,41 @@ const CreateEvent = () => {
                   </Field>
                   <ErrorMessage
                     name="category"
+                    component="div"
+                    className="text-sm text-red-500"
+                  />
+                </div>
+                {/* New: Start Date */}
+                <div className="space-y-1">
+                  <Label htmlFor="startDate">Start Date *</Label>
+                  <Field type="date" name="startDate" as={Input} />
+                  <ErrorMessage
+                    name="startDate"
+                    component="div"
+                    className="text-sm text-red-500"
+                  />
+                </div>
+
+                {/* New: End Date */}
+                <div className="space-y-1">
+                  <Label htmlFor="endDate">End Date *</Label>
+                  <Field type="date" name="endDate" as={Input} />
+                  <ErrorMessage
+                    name="endDate"
+                    component="div"
+                    className="text-sm text-red-500"
+                  />
+                </div>
+                {/* New: Location */}
+                <div className="space-y-1">
+                  <Label htmlFor="location">Location *</Label>
+                  <Field
+                    name="location"
+                    as={Input}
+                    placeholder="Event location"
+                  />
+                  <ErrorMessage
+                    name="location"
                     component="div"
                     className="text-sm text-red-500"
                   />

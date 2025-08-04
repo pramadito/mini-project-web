@@ -57,7 +57,7 @@ const EventList = () => {
 
   return (
     <>
-      <div className="flex flex-col sm:flex-row items-start sm:items-center  gap-4 mb-8 mt-12">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center  gap-4 mb-8 mt-3">
         <Input
           type="text"
           placeholder="Search..."

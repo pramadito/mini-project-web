@@ -1,4 +1,5 @@
 import { axiosInstance } from "@/lib/axios";
+import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useSession } from "next-auth/react";
@@ -38,7 +39,7 @@ const useCreateTicket = () => {
     onSuccess: async () => {
       alert("Create ticket success");
       await queryClient.invalidateQueries({ queryKey: ["tickets"] });
-      router.push("/tickets");
+      router.push("/");
     },
     onError: (error: AxiosError<{ message: string; code: number }>) => {
       alert(error.response?.data.message ?? "Something went wrong!");
