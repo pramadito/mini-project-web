@@ -12,6 +12,8 @@ interface UpdateProfilePayload {
   bio?: string;
   profilePicture?: File | null;
   userId: string;
+  password?: string;
+  confirmPassword?: string;
 }
 
 const useUpdateProfile = () => {
