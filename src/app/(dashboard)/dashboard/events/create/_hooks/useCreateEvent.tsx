@@ -14,7 +14,7 @@ interface Payload {
 const useCreateEvent = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const session = useSession()
+  const session = useSession();
 
   return useMutation({
     mutationFn: async (payload: Payload) => {
@@ -23,12 +23,14 @@ const useCreateEvent = () => {
       form.append("title", payload.title);
       form.append("category", payload.category);
       form.append("description", payload.description);
-  
 
-    await axiosInstance.post("/events/create", form, {
-  headers: { Authorization: `Bearer ${session.data?.user.accessToken}` },
-});
+      if (payload.thumbnail) {
+        form.append("thumbnail", payload.thumbnail);
+      }
 
+      await axiosInstance.post("/events", form, {
+        headers: { Authorization: `Bearer ${session.data?.user.accessToken}` },
+      });
     },
     onSuccess: async () => {
       alert("create event success");

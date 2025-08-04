@@ -1,6 +1,6 @@
 import { auth } from "@/auth"
 import { notFound, redirect } from "next/navigation";
-import WritePage from "../components/WritePage";
+import WritePage from "../components/createEvent";
 
 
 const Write = async () => {

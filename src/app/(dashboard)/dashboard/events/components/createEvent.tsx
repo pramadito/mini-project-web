@@ -9,7 +9,7 @@ import { Trash } from "lucide-react";
 import Image from "next/image";
 import { ChangeEvent, useState } from "react";
 import * as Yup from "yup";
-import useCreateEvent from "../create/api/page";
+import useCreateEvent from "../create/_hooks/useCreateEvent";
 
 interface FormValues {
   title: string;
@@ -25,7 +25,7 @@ const validationSchema = Yup.object().shape({
   thumbnail: Yup.mixed().required("Thumbnail is required"),
 });
 
-const CreatePage = () => {
+const CreateEvent = () => {
   const [previewImage, setPreviewImage] = useState<string>("");
   const { mutateAsync: createEvent, isPending } = useCreateEvent();
 
@@ -61,6 +61,7 @@ const CreatePage = () => {
         }}
         validationSchema={validationSchema}
         onSubmit={async (values) => {
+          
           await createEvent({
             title: values.title,
             category: values.category,
@@ -175,4 +176,4 @@ const CreatePage = () => {
   );
 };
 
-export default CreatePage;
+export default CreateEvent;
