@@ -1,193 +1,226 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { toast } from "sonner";
-
 import { Button } from "@/components/ui/button";
-import {
-	Form,
-	FormControl,
-	FormDescription,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Camera } from "lucide-react";
+import { Trash } from "lucide-react";
+import useUpdateProfile from "./_hooks/useUpdateProfile";
+import { useSession } from "next-auth/react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-const profileFormSchema = z.object({
-	username: z
-		.string()
-		.min(2, {
-			message: "Username must be at least 2 characters.",
-		})
-		.max(30, {
-			message: "Username must not be longer than 30 characters.",
-		}),
-	name: z
-		.string()
-		.min(2, {
-			message: "Name must be at least 2 characters.",
-		})
-		.max(100, {
-			message: "Name must not be longer than 100 characters.",
-		}),
-	email: z
-		.string({
-			required_error: "Please select an email to display.",
-		})
-		.email(),
-	bio: z.string().max(500, {
-		message: "Bio must not be longer than 500 characters.",
-	}),
-	urls: z
-		.array(
-			z.object({
-				value: z.string().url({ message: "Please enter a valid URL." }),
-			}),
-		)
-		.optional(),
+// Updated schema with password validation
+const profileSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
+  bio: z.string().optional(),
+  password: z.string().min(8, "Password must be at least 8 characters").optional().or(z.literal('')),
+  confirmPassword: z.string().optional(),
+}).refine(data => {
+  if (data.password && !data.confirmPassword) {
+    return false;
+  }
+  return true;
+}, {
+  message: "Confirm password is required when changing password",
+  path: ["confirmPassword"],
+}).refine(data => {
+  if (data.password && data.confirmPassword) {
+    return data.password === data.confirmPassword;
+  }
+  return true;
+}, {
+  message: "Passwords must match",
+  path: ["confirmPassword"],
 });
 
-type ProfileFormValues = z.infer<typeof profileFormSchema>;
+export default function ProfilePage() {
+  const { data: session } = useSession();
+  const { mutate: updateProfile, isPending } = useUpdateProfile();
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-// This can come from your database
-const defaultValues: Partial<ProfileFormValues> = {
-	bio: "I own a computer.",
-	urls: [
-		{ value: "https://shadcn.com" },
-		{ value: "http://twitter.com/shadcn" },
-	],
-};
+  const { 
+    register, 
+    handleSubmit, 
+    formState: { errors }, 
+    reset,
+    watch
+  } = useForm({
+    resolver: zodResolver(profileSchema),
+    defaultValues: {
+      name: session?.user?.name || "",
+      email: session?.user?.email || "",
+      
+      password: "",
+      confirmPassword: "",
+    }
+  });
 
-export default function SettingsPage() {
-	const form = useForm<ProfileFormValues>({
-		resolver: zodResolver(profileFormSchema),
-		defaultValues,
-		mode: "onChange",
-	});
+  // Set form values when session loads
+  useEffect(() => {
+    reset({
+      name: session?.user?.name || "",
+      email: session?.user?.email || "",
+      
+      password: "",
+      confirmPassword: "",
+    });
+  }, [session, reset]);
 
-	function onSubmit(data: ProfileFormValues) {
-		console.log("Profile data:", data);
-		toast.success("Profile updated successfully!", {
-			description: "Your profile has been updated.",
-		});
-	}
+  // Clean up object URLs
+  useEffect(() => {
+    return () => {
+      if (previewImage) URL.revokeObjectURL(previewImage);
+    };
+  }, [previewImage]);
 
-	return (
-		<div className="space-y-6">
-			<div>
-				<h3 className="text-lg font-medium">Profile</h3>
-				<p className="text-sm text-muted-foreground">
-					This is how others will see you on the site.
-				</p>
-			</div>
-			<Separator />
-			<Form {...form}>
-				<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-					<div className="flex items-center gap-6">
-						<Avatar className="h-20 w-20">
-							<AvatarImage src="/avatars/01.png" alt="@username" />
-							<AvatarFallback>JD</AvatarFallback>
-						</Avatar>
-						<div className="space-y-2">
-							<Label htmlFor="picture">Profile Picture</Label>
-							<Button variant="outline" size="sm" className="w-fit">
-								<Camera className="mr-2 h-4 w-4" />
-								Change Picture
-							</Button>
-						</div>
-					</div>
-					<div className="grid gap-6 md:grid-cols-2">
-						<FormField
-							control={form.control}
-							name="username"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Username</FormLabel>
-									<FormControl>
-										<Input placeholder="username" {...field} />
-									</FormControl>
-									<FormDescription>
-										This is your public display name. It can be your real name
-										or a pseudonym.
-									</FormDescription>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-						<FormField
-							control={form.control}
-							name="name"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Name</FormLabel>
-									<FormControl>
-										<Input placeholder="John Doe" {...field} />
-									</FormControl>
-									<FormDescription>
-										This is your public display name. It can be your real name
-										or a pseudonym.
-									</FormDescription>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-					</div>
-					<FormField
-						control={form.control}
-						name="email"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Email</FormLabel>
-								<FormControl>
-									<Input placeholder="john.doe@example.com" {...field} />
-								</FormControl>
-								<FormDescription>
-									You can manage verified email addresses in your{" "}
-									<a
-										href="/dashboard/settings/email"
-										className="underline underline-offset-4"
-									>
-										email settings
-									</a>
-									.
-								</FormDescription>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-					<FormField
-						control={form.control}
-						name="bio"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Bio</FormLabel>
-								<FormControl>
-									<Textarea
-										placeholder="Tell us a little bit about yourself"
-										className="resize-none"
-										{...field}
-									/>
-								</FormControl>
-								<FormDescription>
-									You can <span>@mention</span> other users and organizations to
-									link to them.
-								</FormDescription>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-					<Button type="submit">Update profile</Button>
-				</form>
-			</Form>
-		</div>
-	);
+  const onSubmit = (data: any) => {
+    const formData = new FormData();
+    
+    formData.append("name", data.name);
+    formData.append("email", data.email);
+    formData.append("userId", session?.user?.id || "");
+    
+    if (data.bio) formData.append("bio", data.bio);
+    if (data.password) formData.append("password", data.password);
+    if (fileInputRef.current?.files?.[0]) {
+      formData.append("profilePicture", fileInputRef.current.files[0]);
+    }
+
+    updateProfile({
+      ...data,
+      userId: session?.user?.id || "",
+      profilePicture: fileInputRef.current?.files?.[0] || null,
+    });
+  };
+
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    setPreviewImage(file ? URL.createObjectURL(file) : null);
+  };
+
+  const removeImage = () => {
+    if (fileInputRef.current) fileInputRef.current.value = "";
+    setPreviewImage(null);
+  };
+
+  const displayImage = previewImage || session?.user?.profilePicture;
+  const initials = session?.user?.name?.match(/\b\w/g)?.join("").toUpperCase() || "US";
+
+  return (
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-6">Update Profile</h1>
+      
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 max-w-lg">
+        {/* Profile Picture */}
+        <div className="space-y-2">
+          <Label>Profile Picture</Label>
+          <div className="flex items-center gap-4">
+            <Avatar className="h-24 w-24 border">
+              <AvatarImage src={displayImage} />
+              <AvatarFallback className="bg-primary text-primary-foreground text-2xl">
+                {initials}
+              </AvatarFallback>
+            </Avatar>
+            <div className="flex flex-col gap-2 flex-1">
+              <Input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                disabled={isPending}
+              />
+              <Button
+                type="button"
+                variant="destructive"
+                size="sm"
+                onClick={removeImage}
+                disabled={!previewImage || isPending}
+              >
+                <Trash className="h-4 w-4 mr-2" />
+                Remove
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Name */}
+        <div className="space-y-2">
+          <Label htmlFor="name">Name</Label>
+          <Input
+            id="name"
+            {...register("name")}
+            disabled={isPending}
+          />
+          {errors.name && (
+            <p className="text-sm text-red-500">{errors.name.message}</p>
+          )}
+        </div>
+
+        {/* Email */}
+        <div className="space-y-2">
+          <Label htmlFor="email">Email</Label>
+          <Input
+            id="email"
+            type="email"
+            {...register("email")}
+            disabled={isPending}
+          />
+          {errors.email && (
+            <p className="text-sm text-red-500">{errors.email.message}</p>
+          )}
+        </div>
+
+        {/* Bio */}
+        <div className="space-y-2">
+          <Label htmlFor="bio">Bio</Label>
+          <Textarea
+            id="bio"
+            {...register("bio")}
+            disabled={isPending}
+            rows={4}
+          />
+        </div>
+
+        {/* Password */}
+        <div className="space-y-2">
+          <Label htmlFor="password">New Password</Label>
+          <Input
+            id="password"
+            type="password"
+            {...register("password")}
+            disabled={isPending}
+            placeholder="Leave blank to keep current"
+          />
+          {errors.password && (
+            <p className="text-sm text-red-500">{errors.password.message}</p>
+          )}
+        </div>
+
+        {/* Confirm Password */}
+        <div className="space-y-2">
+          <Label htmlFor="confirmPassword">Confirm New Password</Label>
+          <Input
+            id="confirmPassword"
+            type="password"
+            {...register("confirmPassword")}
+            disabled={isPending}
+            placeholder="Confirm your new password"
+          />
+          {errors.confirmPassword && (
+            <p className="text-sm text-red-500">{errors.confirmPassword.message}</p>
+          )}
+        </div>
+
+        <Button type="submit" disabled={isPending} className="w-full">
+          {isPending ? "Saving..." : "Save Changes"}
+        </Button>
+      </form>
+    </div>
+  );
 }

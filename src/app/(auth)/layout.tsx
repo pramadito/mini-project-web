@@ -6,7 +6,9 @@ export default function AuthLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900">
+		<div>
+			{/* -mt-24 for now */}
+			 <div className="mt-26 " />
 			{children}
 			<Toaster />
 		</div>
