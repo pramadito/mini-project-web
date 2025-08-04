@@ -30,9 +30,11 @@ const useUpdateProfile = () => {
       formData.append("email", payload.email);
       formData.append("userId", payload.userId);
       
-      // if (payload.bio) {
-      //   formData.append("bio", payload.bio);
-      // }
+      
+      if (payload.password) {
+        formData.append("password", payload.password);
+      
+      }
       
       if (payload.profilePicture) {
         formData.append("profilePicture", payload.profilePicture);
