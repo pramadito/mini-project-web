@@ -7,7 +7,7 @@ import "./globals.css";
 
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import NextAuthProvider from "@/providers/NextAuthProvider";
-import Navbar from "@/components/navbar/navbar";
+import Navbar from "@/components/navbar/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
