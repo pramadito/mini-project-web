@@ -43,8 +43,8 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            
             <Navbar />
+            <div className="mt-26 " />
             {children}
             
           </ThemeProvider>

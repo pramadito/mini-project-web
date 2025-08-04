@@ -23,7 +23,7 @@ import {
   TooltipContent,
   TooltipTrigger,
   TooltipProvider,
-} from "@/components/ui/tooltip"
+} from "@/components/ui/tooltip";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Name is required").min(3),
@@ -36,7 +36,7 @@ const Register = () => {
   const [showReferral, setShowReferral] = useState(false);
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="flex min-h-screen items-center justify-center">
       <Card className="w-full max-w-sm">
         <Formik
           initialValues={{ name: "", email: "", password: "" }}
@@ -53,7 +53,7 @@ const Register = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
-              <Button variant="outline" className="w-full gap-3">
+              {/* <Button variant="outline" className="w-full gap-3">
                 <GoogleLogo />
                 Continue with Google
               </Button>
@@ -62,7 +62,7 @@ const Register = () => {
                 <Separator className="flex-1" />
                 <span className="text-sm px-2">OR</span>
                 <Separator className="flex-1" />
-              </div>
+              </div> */}
 
               {/* NAME */}
               <div className="grid gap-2">
@@ -79,7 +79,7 @@ const Register = () => {
                   className="text-sm text-red-500"
                 />
               </div>
-              
+
               {/* Email */}
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
@@ -95,7 +95,7 @@ const Register = () => {
                   className="text-sm text-red-500"
                 />
               </div>
-              
+
               {/* Password */}
               <div className="grid gap-2">
                 <Label htmlFor="password">Password</Label>
@@ -115,14 +115,19 @@ const Register = () => {
               {showReferral && (
                 <div className="grid gap-2">
                   <div className="flex items-center gap-2">
-                    <Label htmlFor="referralCode">Referral Code (Optional)</Label>
+                    <Label htmlFor="referralCode">
+                      Referral Code (Optional)
+                    </Label>
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger>
                           <Info className="h-4 w-4" />
                         </TooltipTrigger>
                         <TooltipContent>
-                          <p>Get 10,000 points for you and the referrer when you sign up with a referral code</p>
+                          <p>
+                            Get 10,000 points for you and the referrer when you
+                            sign up with a referral code
+                          </p>
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -133,8 +138,9 @@ const Register = () => {
                     type="text"
                     placeholder="Enter referral code"
                   />
-                  <p className="text-xs text-muted-foreground">
-                    Using a referral code gives you a discount coupon and the referrer gets 10,000 points.
+                  <p className="text-muted-foreground text-xs">
+                    Using a referral code gives you a discount coupon and the
+                    referrer gets 10,000 points.
                   </p>
                 </div>
               )}
@@ -143,33 +149,40 @@ const Register = () => {
                 <Button
                   type="button"
                   variant="link"
-                  className="text-sm text-muted-foreground p-0 h-auto"
+                  className="text-muted-foreground h-auto p-0 text-sm"
                   onClick={() => setShowReferral(true)}
                 >
                   Have a referral code?
                 </Button>
               )}
 
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <h4 className="font-medium text-sm mb-2">Points System</h4>
-                <ul className="text-xs space-y-1 text-muted-foreground">
+              <div className="rounded-lg bg-blue-50 p-4 dark:bg-gray-800">
+                <h4 className="mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                  Points System
+                </h4>
+                <ul className="text-muted-foreground space-y-1 text-xs dark:text-gray-300">
                   <li>• Sign up bonus: 5,000 points</li>
-                  <li>• Referral bonus: 10,000 points (for both referrer and referee)</li>
+                  <li>
+                    • Referral bonus: 10,000 points (for both referrer and
+                    referee)
+                  </li>
                   <li>• Points expire 3 months after being credited</li>
-                  <li>• Discount coupons from referrals are valid for 3 months</li>
+                  <li>
+                    • Discount coupons from referrals are valid for 3 months
+                  </li>
                 </ul>
               </div>
             </CardContent>
             <CardFooter className="flex-col gap-4">
               <Button type="submit" className="w-full" disabled={isPending}>
                 {isPending ? (
-                  <LoaderCircle className="animate-spin mr-2 h-4 w-4" />
+                  <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
                 ) : null}
                 Create Account
               </Button>
-              <p className="text-sm text-center">
+              <p className="text-center text-sm">
                 Already have an account?{" "}
-                <Link href="/login" className="underline text-muted-foreground">
+                <Link href="/login" className="text-muted-foreground underline">
                   Sign in
                 </Link>
               </p>
@@ -188,7 +201,7 @@ const GoogleLogo = () => (
     viewBox="0 0 16 16"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className="inline-block shrink-0 align-sub text-[inherit] size-lg"
+    className="size-lg inline-block shrink-0 align-sub text-[inherit]"
   >
     <g clipPath="url(#clip0)">
       <path

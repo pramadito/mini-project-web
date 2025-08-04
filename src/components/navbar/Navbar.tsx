@@ -135,11 +135,11 @@ const Navbar = () => {
                         </span>
                       </DropdownMenuItem>
                       <DropdownMenuSeparator className="my-2" />
-                      <DropdownMenuItem className="cursor-pointer rounded-md p-3 text-red-600 transition-colors hover:bg-red-50 hover:text-red-700">
-                        <span
-                          className="flex items-center gap-2"
-                          onClick={logout}
-                        >
+                      <DropdownMenuItem
+                        className="cursor-pointer rounded-md p-3 text-red-600 transition-colors hover:bg-red-50 hover:text-red-700"
+                        onClick={logout}
+                      >
+                        <span className="flex items-center gap-2">
                           🚪 Log out
                         </span>
                       </DropdownMenuItem>
