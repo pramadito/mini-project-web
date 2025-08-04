@@ -30,7 +30,6 @@ import {
   SheetContent,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { IconListDetails } from "@tabler/icons-react";
 
 const sidebarGroups = [
   {
@@ -60,26 +59,10 @@ const sidebarGroups = [
     title: "Organizer",
     items: [
       {
-        title: "Manage Events ",
+        title: "Manage Events",
         href: "/dashboard/manage-events",
         icon: Calendar1,
         badge: null,
-        children: [
-          {
-            title: "Create Event",
-            href: "/dashboard/events/create",}
-        ]
-      },
-      {
-        title: "Manage Ticket",
-        href: "/dashboard/manage-tickets",
-        icon: IconListDetails,
-        badge: null,
-        children: [
-          {
-            title: "Create Ticket",
-            href: "/dashboard/ticket/create",}
-        ]
       },
       {
         title: "Statistic",
