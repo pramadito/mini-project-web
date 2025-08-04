@@ -1,27 +1,16 @@
 "use client";
 
-import * as React from "react";
 import {
-  IconCamera,
   IconChartBar,
   IconDashboard,
-  IconDatabase,
-  IconFileAi,
-  IconFileDescription,
-  IconFileWord,
-  IconFolder,
-  IconHelp,
   IconInnerShadowTop,
   IconListDetails,
   IconReport,
-  IconSearch,
-  IconSettings,
-  IconUsers,
-} from "@tabler/icons-react"
+  IconSearch
+} from "@tabler/icons-react";
+import * as React from "react";
 
-import { NavDocuments } from "@/components/nav-documents";
 import { NavMain } from "@/components/nav-main";
-import { NavSecondary } from "@/components/nav-secondary";
 import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
@@ -54,6 +43,18 @@ const data = {
       title: "Transactions",
       url: "/dashboard/transactions",
       icon: IconChartBar,
+      children: [
+        {
+          title: "Manual Transaction",
+          url: "/dashboard/Transaction/manual",
+          icon: IconReport,
+        },
+        {
+          title: "Analytics",
+          url: "/dashboard/analytics",
+          icon: IconSearch,
+        },
+      ]
     },
   ],
 };

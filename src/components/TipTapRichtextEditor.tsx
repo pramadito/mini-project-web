@@ -1,18 +1,20 @@
+// components/TiptapRichtextEditor.tsx
 "use client";
 
-import { FC } from "react";
-import { useEditor, EditorContent } from "@tiptap/react";
+import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { Label } from "./ui/label";
 import { useFormikContext } from "formik";
+import { FC } from "react";
+
+import { Label } from "./ui/label";
 import TipTapMenuBar from "./TipTapMenuBar";
 
-interface TipTapRichtextEditorProps {
+interface TiptapRichtextEditorProps {
   label: string;
   name: string;
 }
 
-const TipTapRichtextEditor: FC<TipTapRichtextEditorProps> = ({
+const TiptapRichtextEditor: FC<TiptapRichtextEditorProps> = ({
   label,
   name,
 }) => {
@@ -35,8 +37,9 @@ const TipTapRichtextEditor: FC<TipTapRichtextEditorProps> = ({
       setFieldTouched(name, true);
     },
     onBlur: () => {
-      if (editor?.isEmpty) setFieldError(name, `${label} isrequired`);
+      if (editor?.isEmpty) setFieldError(name, `${label} is required`);
     },
+    immediatelyRender: false,
   });
 
   return (
@@ -45,10 +48,10 @@ const TipTapRichtextEditor: FC<TipTapRichtextEditorProps> = ({
       <TipTapMenuBar editor={editor} />
       <EditorContent editor={editor} />
       {editor?.isEmpty && touched[name] && (
-        <p className="text-xs text-red-500">{label} is required</p>
+        <p className="text-red-500">Content is required</p>
       )}
     </div>
   );
 };
 
-export default TipTapRichtextEditor;
+export default TiptapRichtextEditor;

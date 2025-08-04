@@ -30,6 +30,7 @@ import {
   SheetContent,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { IconListDetails } from "@tabler/icons-react";
 
 const sidebarGroups = [
   {
@@ -60,10 +61,26 @@ const sidebarGroups = [
     items: [
       
       {
-        title: "Manage Events",
+        title: "Manage Events ",
         href: "/dashboard/manage-events",
         icon: Calendar1,
         badge: null,
+        children: [
+          {
+            title: "Create Event",
+            href: "/dashboard/events/create",}
+        ]
+      },
+      {
+        title: "Manage Ticket",
+        href: "/dashboard/manage-tickets",
+        icon: IconListDetails,
+        badge: null,
+        children: [
+          {
+            title: "Create Ticket",
+            href: "/dashboard/ticket/create",}
+        ]
       },
       {
         title: "Statistic",
@@ -171,32 +188,54 @@ export function Sidebar({ onMobileClose }: SidebarProps) {
                 {/* Group Items */}
                 <div className="space-y-2">
                   {group.items.map((item) => {
-                    const isActive = pathname === item.href;
-                    const Icon = item.icon;
+  const isActive = pathname === item.href;
+  const Icon = item.icon;
 
-                    return (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        className={cn(
-                          "group hover:bg-muted flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-all duration-200",
-                          isActive
-                            ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-md"
-                            : "text-muted-foreground hover:text-foreground",
-                        )}
-                      >
-                        <Icon
-                          className={cn(
-                            "h-4 w-4 transition-all duration-200",
-                            isActive && "text-primary-foreground",
-                          )}
-                        />
-                        <span className="transition-transform duration-200 group-hover:translate-x-0.5">
-                          {item.title}
-                        </span>
-                      </Link>
-                    );
-                  })}
+  return (
+    <div key={item.href} className="space-y-1">
+      <Link
+        href={item.href}
+        onClick={handleLinkClick}
+        className={cn(
+          "group hover:bg-muted flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-all duration-200",
+          isActive
+            ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-md"
+            : "text-muted-foreground hover:text-foreground"
+        )}
+      >
+        <Icon
+          className={cn(
+            "h-4 w-4 transition-all duration-200",
+            isActive && "text-primary-foreground"
+          )}
+        />
+        <span className="transition-transform duration-200 group-hover:translate-x-0.5">
+          {item.title}
+        </span>
+      </Link>
+
+      {item.children?.map((child) => {
+        const isChildActive = pathname === child.href;
+        return (
+          <Link
+            key={child.href}
+            href={child.href}
+            onClick={handleLinkClick}
+            className={cn(
+              "ml-8 block rounded-md px-3 py-2 text-sm transition-colors",
+              isChildActive
+                ? "text-primary font-semibold"
+                : "text-muted-foreground hover:text-foreground"
+            )}
+          >
+            {child.title}
+          </Link>
+        );
+      })}
+    </div>
+  );
+})}
+
                 </div>
               </div>
             ))}

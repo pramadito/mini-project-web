@@ -23,7 +23,7 @@ const EventList = () => {
   const searchParams = useSearchParams();
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-  const [category, setCategory] = useState("all");
+  const [category, setCategory] = useState("All");
 
 
   console.log(category);
@@ -40,7 +40,7 @@ const EventList = () => {
 
   useEffect(() => {
     const params = new URLSearchParams(searchParams);
-    category !== "all"
+    category !== "All"
       ? params.set("category", category)
       : params.delete("category");
     router.replace(`/events?${params.toString()}`);
@@ -51,6 +51,8 @@ const EventList = () => {
     search: debounceSearch,
     category: category === "All" ? undefined : category,
   });
+
+  console.log(events);
 
 
   return (
