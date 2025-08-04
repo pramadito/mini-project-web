@@ -8,6 +8,7 @@ export default function AuthLayout({
 	return (
 		<div>
 			{/* -mt-24 for now */}
+			 <div className="mt-26 " />
 			{children}
 			<Toaster />
 		</div>

@@ -44,7 +44,6 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <Navbar />
-            <div className="mt-26 " />
             {children}
             
           </ThemeProvider>
