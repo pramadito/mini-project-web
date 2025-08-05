@@ -7,6 +7,7 @@ export interface User {
   updatedAt: Date;
   referralCode: string;
   referredBy: string | null;
+  role: string;
 }
 
 

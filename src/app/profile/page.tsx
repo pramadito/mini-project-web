@@ -55,7 +55,7 @@ export default function ProfilePage() {
     defaultValues: {
       name: session?.user?.name || "",
       email: session?.user?.email || "",
-      
+      //bio: session?.user?.bio || "",
       password: "",
       confirmPassword: "",
     }
@@ -66,7 +66,7 @@ export default function ProfilePage() {
     reset({
       name: session?.user?.name || "",
       email: session?.user?.email || "",
-      
+      //bio: session?.user?.bio || "",
       password: "",
       confirmPassword: "",
     });
@@ -113,27 +113,28 @@ export default function ProfilePage() {
   const initials = session?.user?.name?.match(/\b\w/g)?.join("").toUpperCase() || "US";
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-6">Update Profile</h1>
+    <div className="container mx-auto px-4 py-8 flex flex-col items-center">
+      <h1 className="text-2xl font-bold mb-6 text-center">Update Profile</h1>
       
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 max-w-lg">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-lg space-y-4">
         {/* Profile Picture */}
         <div className="space-y-2">
           <Label>Profile Picture</Label>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center gap-4">
             <Avatar className="h-24 w-24 border">
               <AvatarImage src={displayImage} />
               <AvatarFallback className="bg-primary text-primary-foreground text-2xl">
                 {initials}
               </AvatarFallback>
             </Avatar>
-            <div className="flex flex-col gap-2 flex-1">
+            <div className="flex flex-col gap-2 w-full sm:w-auto">
               <Input
                 ref={fileInputRef}
                 type="file"
                 accept="image/*"
                 onChange={handleImageChange}
                 disabled={isPending}
+                className="w-full"
               />
               <Button
                 type="button"
@@ -141,6 +142,7 @@ export default function ProfilePage() {
                 size="sm"
                 onClick={removeImage}
                 disabled={!previewImage || isPending}
+                className="w-full sm:w-auto"
               >
                 <Trash className="h-4 w-4 mr-2" />
                 Remove
@@ -177,7 +179,7 @@ export default function ProfilePage() {
         </div>
 
         {/* Bio */}
-        <div className="space-y-2">
+        {/* <div className="space-y-2">
           <Label htmlFor="bio">Bio</Label>
           <Textarea
             id="bio"
@@ -185,7 +187,7 @@ export default function ProfilePage() {
             disabled={isPending}
             rows={4}
           />
-        </div>
+        </div> */}
 
         {/* Password */}
         <div className="space-y-2">

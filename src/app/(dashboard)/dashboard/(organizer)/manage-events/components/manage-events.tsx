@@ -75,7 +75,7 @@ const projects = [
 	},
 ];
 
-export default function ProjectsPage() {
+export default function ManageEventsPage() {
 	return (
 		<div className="space-y-6">
 			<div className="flex items-center justify-between">

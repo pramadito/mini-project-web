@@ -126,21 +126,21 @@ const Navbar = () => {
                           </span>
                         </DropdownMenuItem>
                       </Link>
-                      <Link href={"/dashboard/tickets"}>
+                      <Link href={"/tickets"}>
                         <DropdownMenuItem className="hover:bg-muted cursor-pointer rounded-md p-3 transition-colors">
                           <span className="flex items-center gap-2">
                             💳 Tickets
                           </span>
                         </DropdownMenuItem>
                       </Link>
-                      <Link href={"/dashboard/points"}>
+                      <Link href={"/points"}>
                         <DropdownMenuItem className="hover:bg-muted cursor-pointer rounded-md p-3 transition-colors">
                           <span className="flex items-center gap-2">
                             🪙 Points
                           </span>
                         </DropdownMenuItem>
                       </Link>
-                      <Link href={"/dashboard/profile"}>
+                      <Link href={"/profile"}>
                         <DropdownMenuItem className="hover:bg-muted cursor-pointer rounded-md p-3 transition-colors">
                           <span className="flex items-center gap-2">
                             👤 Profile

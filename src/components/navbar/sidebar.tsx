@@ -21,7 +21,7 @@ import {
   AlertCircle,
   Menu,
   Ticket,
-  Calendar1,
+  Calendar as Calendar1,
   Coins,
   User,
 } from "lucide-react";
@@ -56,12 +56,7 @@ const sidebarGroups = [
         icon: Ticket,
         badge: "12",
       },
-      {
-        title: "Profile",
-        href: "/dashboard/profile",
-        icon: User,
-        badge: null,
-      },
+    
       
     ],
   },
@@ -136,22 +131,12 @@ export function Sidebar({ onMobileClose }: SidebarProps) {
   return (
     <>
       {/* Desktop Sidebar - Always visible on left */}
-      <aside className="hidden lg:inset-y-0 lg:left-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-        <div className="flex h-full flex-col gap-y-5 overflow-y-auto border-r bg-background px-6 pb-4">
-          {/* Logo */}
-          <div className="flex h-16 shrink-0 items-center border-b">
-            <Link href="/dashboard" className="group flex items-center gap-3">
-              <div className="bg-primary flex h-8 w-8 items-center justify-center rounded-lg">
-                <LayoutDashboard className="text-primary-foreground h-4 w-4" />
-              </div>
-              <span className="group-hover:text-primary text-xl font-bold transition-colors">
-                Dashboard
-              </span>
-            </Link>
-          </div>
+      <aside className="hidden lg:flex lg:h-full lg:w-72 lg:flex-col lg:fixed lg:inset-y-0 lg:z-50 mt-18">
+        <div className="flex h-full flex-col gap-y-5 overflow-hidden border-r bg-background">
+          
 
           {/* Navigation Groups - Scrollable area */}
-          <nav className="flex-1 overflow-y-auto">
+          <nav className="flex-1 overflow-y-auto px-3 pb-4">
             <div className="space-y-8">
               {sidebarGroups.map((group) => (
                 <div key={group.title} className="space-y-3">
@@ -205,10 +190,10 @@ export function Sidebar({ onMobileClose }: SidebarProps) {
               <Menu />
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-72 p-0">
+          <SheetContent side="left" className="w-72 p-0">
             <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
 
-            <div className="flex h-full flex-col">
+            <div className="flex h-full flex-col overflow-hidden">
               {/* Logo */}
               <div className="flex h-16 shrink-0 items-center justify-between border-b px-6">
                 <Link href="/dashboard" className="group flex items-center gap-3">
@@ -222,7 +207,7 @@ export function Sidebar({ onMobileClose }: SidebarProps) {
               </div>
 
               {/* Navigation Groups - Scrollable area */}
-              <nav className="flex-1 overflow-y-auto p-6">
+              <nav className="flex-1 overflow-y-auto px-3 py-4">
                 <div className="space-y-8">
                   {sidebarGroups.map((group) => (
                     <div key={group.title} className="space-y-3">
