@@ -22,6 +22,8 @@ import {
   Menu,
   Ticket,
   Calendar1,
+  Coins,
+  User,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -43,6 +45,12 @@ const sidebarGroups = [
         badge: null,
       },
       {
+        title: "Points",
+        href: "/dashboard/Points",
+        icon: Coins,
+        badge: null,
+      },
+      {
         title: "Tickets",
         href: "/dashboard/tickets",
         icon: Ticket,
@@ -51,9 +59,10 @@ const sidebarGroups = [
       {
         title: "Profile",
         href: "/dashboard/profile",
-        icon: Settings,
+        icon: User,
         badge: null,
       },
+      
     ],
   },
   {
@@ -105,12 +114,7 @@ const sidebarGroups = [
         icon: LogIn,
         badge: null,
       },
-      {
-        title: "Error Pages",
-        href: "/dashboard/errors",
-        icon: AlertCircle,
-        badge: null,
-      },
+      
     ],
   },
 ];
