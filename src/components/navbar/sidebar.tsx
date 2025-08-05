@@ -36,31 +36,6 @@ import { IconListDetails } from "@tabler/icons-react";
 
 const sidebarGroups = [
   {
-    title: "General",
-    items: [
-      {
-        title: "Dashboard",
-        href: "/dashboard",
-        icon: LayoutDashboard,
-        badge: null,
-      },
-      {
-        title: "Points",
-        href: "/dashboard/points",
-        icon: Coins,
-        badge: null,
-      },
-      {
-        title: "Tickets",
-        href: "/dashboard/tickets",
-        icon: Ticket,
-        badge: "12",
-      },
-    
-      
-    ],
-  },
-  {
     title: "Organizer",
     items: [
       {
@@ -133,7 +108,17 @@ export function Sidebar({ onMobileClose }: SidebarProps) {
       {/* Desktop Sidebar - Always visible on left */}
       <aside className="hidden lg:flex lg:h-full lg:w-72 lg:flex-col lg:fixed lg:inset-y-0 lg:z-50 mt-18">
         <div className="flex h-full flex-col gap-y-5 overflow-hidden border-r bg-background">
-          
+          {/* Logo */}
+          <div className="flex h-16 shrink-0 items-center border-b px-6">
+            <Link href="/dashboard" className="group flex items-center gap-3">
+              <div className="bg-primary flex h-8 w-8 items-center justify-center rounded-lg">
+                <LayoutDashboard className="text-primary-foreground h-4 w-4" />
+              </div>
+              <span className="group-hover:text-primary text-xl font-bold transition-colors">
+                Dashboard
+              </span>
+            </Link>
+          </div>
 
           {/* Navigation Groups - Scrollable area */}
           <nav className="flex-1 overflow-y-auto px-3 pb-4">
