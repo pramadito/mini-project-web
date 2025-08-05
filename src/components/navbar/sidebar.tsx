@@ -21,7 +21,9 @@ import {
   AlertCircle,
   Menu,
   Ticket,
-  Calendar1,
+  Calendar as Calendar1,
+  Coins,
+  User,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -33,29 +35,6 @@ import {
 import { IconListDetails } from "@tabler/icons-react";
 
 const sidebarGroups = [
-  {
-    title: "General",
-    items: [
-      {
-        title: "Dashboard",
-        href: "/dashboard",
-        icon: LayoutDashboard,
-        badge: null,
-      },
-      {
-        title: "Tickets",
-        href: "/dashboard/tickets",
-        icon: Ticket,
-        badge: "12",
-      },
-      {
-        title: "Profile",
-        href: "/dashboard/profile",
-        icon: Settings,
-        badge: null,
-      },
-    ],
-  },
   {
     title: "Organizer",
     items: [
@@ -88,8 +67,8 @@ const sidebarGroups = [
         badge: "New",
       },
       {
-        title: "Documents",
-        href: "/dashboard/documents",
+        title: "Attendee-List",
+        href: "/dashboard/attendee-list",
         icon: FileText,
         badge: null,
       },
@@ -105,12 +84,7 @@ const sidebarGroups = [
         icon: LogIn,
         badge: null,
       },
-      {
-        title: "Error Pages",
-        href: "/dashboard/errors",
-        icon: AlertCircle,
-        badge: null,
-      },
+      
     ],
   },
 ];
@@ -132,10 +106,10 @@ export function Sidebar({ onMobileClose }: SidebarProps) {
   return (
     <>
       {/* Desktop Sidebar - Always visible on left */}
-      <aside className="hidden lg:inset-y-0 lg:left-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-        <div className="flex h-full flex-col gap-y-5 overflow-y-auto border-r bg-background px-6 pb-4">
+      <aside className="hidden lg:flex lg:h-full lg:w-72 lg:flex-col lg:fixed lg:inset-y-0 lg:z-50 mt-18">
+        <div className="flex h-full flex-col gap-y-5 overflow-hidden border-r bg-background">
           {/* Logo */}
-          <div className="flex h-16 shrink-0 items-center border-b">
+          <div className="flex h-16 shrink-0 items-center border-b px-6">
             <Link href="/dashboard" className="group flex items-center gap-3">
               <div className="bg-primary flex h-8 w-8 items-center justify-center rounded-lg">
                 <LayoutDashboard className="text-primary-foreground h-4 w-4" />
@@ -147,7 +121,7 @@ export function Sidebar({ onMobileClose }: SidebarProps) {
           </div>
 
           {/* Navigation Groups - Scrollable area */}
-          <nav className="flex-1 overflow-y-auto">
+          <nav className="flex-1 overflow-y-auto px-3 pb-4">
             <div className="space-y-8">
               {sidebarGroups.map((group) => (
                 <div key={group.title} className="space-y-3">
@@ -201,10 +175,10 @@ export function Sidebar({ onMobileClose }: SidebarProps) {
               <Menu />
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-72 p-0">
+          <SheetContent side="left" className="w-72 p-0">
             <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
 
-            <div className="flex h-full flex-col">
+            <div className="flex h-full flex-col overflow-hidden">
               {/* Logo */}
               <div className="flex h-16 shrink-0 items-center justify-between border-b px-6">
                 <Link href="/dashboard" className="group flex items-center gap-3">
@@ -218,7 +192,7 @@ export function Sidebar({ onMobileClose }: SidebarProps) {
               </div>
 
               {/* Navigation Groups - Scrollable area */}
-              <nav className="flex-1 overflow-y-auto p-6">
+              <nav className="flex-1 overflow-y-auto px-3 py-4">
                 <div className="space-y-8">
                   {sidebarGroups.map((group) => (
                     <div key={group.title} className="space-y-3">

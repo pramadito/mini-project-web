@@ -60,7 +60,7 @@ const Navbar = () => {
             <div className="flex items-center gap-4">
               {session.data?.user ? (
                 <>
-                  <Link href="/write">Write</Link>
+                  
                   {/* Profile */}
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -119,21 +119,35 @@ const Navbar = () => {
                       </DropdownMenuLabel>
                       {/* Rest of the dropdown menu items remain the same */}
                       <DropdownMenuSeparator className="my-2" />
-                      <DropdownMenuItem className="hover:bg-muted cursor-pointer rounded-md p-3 transition-colors">
-                        <span className="flex items-center gap-2">
-                          👤 Profile
-                        </span>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem className="hover:bg-muted cursor-pointer rounded-md p-3 transition-colors">
-                        <span className="flex items-center gap-2">
-                          ⚙️ Settings
-                        </span>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem className="hover:bg-muted cursor-pointer rounded-md p-3 transition-colors">
-                        <span className="flex items-center gap-2">
-                          💳 Billing
-                        </span>
-                      </DropdownMenuItem>
+                      <Link href={"/dashboard"}>
+                        <DropdownMenuItem className="hover:bg-muted cursor-pointer rounded-md p-3 transition-colors">
+                          <span className="flex items-center gap-2">
+                            ⚙️ Dashboard
+                          </span>
+                        </DropdownMenuItem>
+                      </Link>
+                      <Link href={"/tickets"}>
+                        <DropdownMenuItem className="hover:bg-muted cursor-pointer rounded-md p-3 transition-colors">
+                          <span className="flex items-center gap-2">
+                            💳 Tickets
+                          </span>
+                        </DropdownMenuItem>
+                      </Link>
+                      <Link href={"/points"}>
+                        <DropdownMenuItem className="hover:bg-muted cursor-pointer rounded-md p-3 transition-colors">
+                          <span className="flex items-center gap-2">
+                            🪙 Points
+                          </span>
+                        </DropdownMenuItem>
+                      </Link>
+                      <Link href={"/profile"}>
+                        <DropdownMenuItem className="hover:bg-muted cursor-pointer rounded-md p-3 transition-colors">
+                          <span className="flex items-center gap-2">
+                            👤 Profile
+                          </span>
+                        </DropdownMenuItem>
+                      </Link>
+
                       <DropdownMenuSeparator className="my-2" />
                       <DropdownMenuItem
                         className="cursor-pointer rounded-md p-3 text-red-600 transition-colors hover:bg-red-50 hover:text-red-700"
