@@ -46,7 +46,7 @@ const sidebarGroups = [
       },
       {
         title: "Points",
-        href: "/dashboard/Points",
+        href: "/dashboard/points",
         icon: Coins,
         badge: null,
       },
