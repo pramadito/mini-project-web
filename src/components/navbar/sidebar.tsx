@@ -67,8 +67,8 @@ const sidebarGroups = [
         badge: "New",
       },
       {
-        title: "Documents",
-        href: "/dashboard/documents",
+        title: "Attendee-List",
+        href: "/dashboard/attendee-list",
         icon: FileText,
         badge: null,
       },
