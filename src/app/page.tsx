@@ -9,7 +9,7 @@ export default function Home() {
     <main>
       <HeroSection />
       <CategoryEvent />
-      <EventHome />
+      {/* <EventHome /> */}
       <Footer />
     </main>
   );

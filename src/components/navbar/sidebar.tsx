@@ -72,18 +72,7 @@ const sidebarGroups = [
         icon: FileText,
         badge: null,
       },
-      {
-        title: "Calendar",
-        href: "/dashboard/calendar",
-        icon: Calendar,
-        badge: "3",
-      },
-      {
-        title: "Auth Pages",
-        href: "/dashboard/auth",
-        icon: LogIn,
-        badge: null,
-      },
+      
       
     ],
   },

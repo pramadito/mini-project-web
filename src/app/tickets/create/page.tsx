@@ -7,7 +7,9 @@ const DashboardTickets = async () => {
 
   if (!session?.user) return redirect(`/login`);
 
-  return <CreateTicket />;
+  return <div>test</div>
+  // return <CreateTicket />
+
 };
 
 export default DashboardTickets;

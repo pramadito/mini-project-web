@@ -8,7 +8,7 @@ const ManageEvents = async () => {
   if (!session?.user) //return redirect("/");
   return notFound();
 
-  return <ManageEventsPage />;
+  return <ManageEventsPage/>;
 };
 
 export default ManageEvents;
